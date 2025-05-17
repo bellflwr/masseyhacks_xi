@@ -1,7 +1,6 @@
-from dataclasses import dataclass, field
-
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
+from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
+from dataclasses import dataclass, field, asdict
 
 
 @dataclass
@@ -21,6 +20,7 @@ class Album:
     release_date: str
     total_tracks: int
     image_url: str
+    total_time: int
     tracks: list[Song] = field(repr=False)
 
 
@@ -66,6 +66,7 @@ def search_album(album_name, limit=10):
                 total_tracks=total_tracks,
                 image_url=image_url,
                 tracks=track_list,
+                total_time=total_time,
             )
         )
 
