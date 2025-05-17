@@ -4,11 +4,9 @@
 
 ### Environment
 
-Make sure your have poetry installed, and run `poetry install`
+Make sure your have poetry installed, and run `uv sync`
 
 Make sure you have the virtual environment enabled, and run `wsgi.py` to run the project.
-
-If you are unsure if it enabled, you can run `poetry shell`, but your editor might enable it automatically.
 
 ### Pre-Commit
 
