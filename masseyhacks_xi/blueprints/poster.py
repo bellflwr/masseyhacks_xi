@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template
-from masseyhacks_xi import spotify
 
 poster = Blueprint("poster", __name__)
 

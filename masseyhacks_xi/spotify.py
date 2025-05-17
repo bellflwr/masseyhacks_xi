@@ -1,6 +1,7 @@
+from dataclasses import dataclass, field
+
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
-from dataclasses import dataclass, field, asdict
+from spotipy.oauth2 import SpotifyOAuth
 
 
 @dataclass
@@ -42,10 +43,12 @@ def search_album(album_name, limit=10):
         release_date = album["release_date"]
         total_tracks = album["total_tracks"]
         image_url = album["images"][0]["url"]
+        total_time = 0
 
         tracks = sp.album_tracks(album["id"])
         track_list = []
         for track in tracks["items"]:
+            total_time += track["duration_ms"]
             song = Song(
                 name=track["name"],
                 id=track["id"],
