@@ -6,6 +6,8 @@ from dataclasses import dataclass, field, asdict
 @dataclass
 class Song:
     name: str
+    id: str
+    artist: str
     duration_ms: int
     preview_url: str
 
@@ -46,6 +48,8 @@ def search_album(album_name):
         for track in tracks["items"]:
             song = Song(
                 name=track["name"],
+                id=track["id"],
+                artist=track["artists"][0]["name"],
                 duration_ms=track["duration_ms"],
                 preview_url=track["preview_url"],
             )
@@ -66,9 +70,29 @@ def search_album(album_name):
 
 
 def search_song(song_name):
-    pass
+    results = sp.search(q=song_name, type="track")
+    songs = results["tracks"]["items"]
+    if not songs:
+        return "No songs found"
+    songs_searched = []
+    for song in songs:
+        name = song["name"]
+        id = song["id"]
+        artist = song["artists"][0]["name"]
+        duration_ms = song["duration_ms"]
+        preview_url = song["preview_url"]
+
+        songs_searched.append(
+            Song(
+                name=name,
+                id=id,
+                artist=artist,
+                duration_ms=duration_ms,
+                preview_url=preview_url,
+            )
+        )
+    return songs_searched
 
 
-a = search_album("currents")
-print(a)
-# print(asdict(a))
+
+
