@@ -4,7 +4,7 @@
 <div x-data="{searchKind: 'album', searchValue: '', items: []}">
     <input
         type="radio"
-        name="search-type"
+        name="search-kind"
         id="album-search"
         value="album"
         x-model="searchKind"
@@ -13,7 +13,7 @@
     <label for="album-search">Album</label>
     <input
         type="radio"
-        name="search-type"
+        name="search-kind"
         id="song-search"
         value="song"
         x-model="searchKind"
@@ -29,8 +29,22 @@
     />
 
     <ul>
-        <template x-for="item in items" :key="item">
-            <li x-text="item"></li>
+        <template x-for="item in items" :key="item.title">
+            <li style="display: flex">
+                <img
+                    x-bind:src="item.image_url"
+                    alt=""
+                    style="width: 100px; height: auto"
+                />
+                <div style="display: flex; flex-direction: column;">
+                    <p x-text="item.title"></p>
+                    <ul>
+                        <template x-for="artist in item.artists">
+                            <li x-text="artist"></li>
+                        </template>
+                    </ul>
+                </div>
+            </li>
         </template>
     </ul>
 </div>
