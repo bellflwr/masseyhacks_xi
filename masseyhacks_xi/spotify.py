@@ -28,8 +28,8 @@ scope = "user-library-read"
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
 
 
-def search_album(album_name):
-    results = sp.search(q=album_name, type="album")
+def search_album(album_name, limit=10):
+    results = sp.search(q=album_name, type="album", limit=limit)
     albums = results["albums"]["items"]
     if not albums:
         return "No albums found"
@@ -69,8 +69,8 @@ def search_album(album_name):
     return albums_searched
 
 
-def search_song(song_name):
-    results = sp.search(q=song_name, type="track")
+def search_song(song_name, limit=10):
+    results = sp.search(q=song_name, type="track", limit=limit)
     songs = results["tracks"]["items"]
     if not songs:
         return "No songs found"
@@ -92,7 +92,3 @@ def search_song(song_name):
             )
         )
     return songs_searched
-
-
-
-
