@@ -1,6 +1,7 @@
+from dataclasses import dataclass, field
+
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
-from dataclasses import dataclass, field, asdict
+from spotipy.oauth2 import SpotifyOAuth
 
 
 @dataclass
