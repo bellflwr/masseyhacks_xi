@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block head %}
+<script defer src="/static/scripts/selector.js"></script>
+{% endblock %} {% block content %}
+<div x-data="{searchKind: 'album', searchValue: '', items: []}">
+    <input
+        type="radio"
+        name="search-type"
+        id="album-search"
+        value="album"
+        x-model="searchKind"
+        @change="items = await fetchResults($data)"
+    />
+    <label for="album-search">Album</label>
+    <input
+        type="radio"
+        name="search-type"
+        id="song-search"
+        value="song"
+        x-model="searchKind"
+        @change="items = await fetchResults($data)"
+    />
+    <label for="song-search">Song</label>
+    <input
+        type="search"
+        id="site-search"
+        name="q"
+        x-model="searchValue"
+        @input.debounce.500ms="items = await fetchResults($data)"
+    />
+
+    <ul>
+        <template x-for="item in items" :key="item">
+            <li x-text="item"></li>
+        </template>
+    </ul>
+</div>
+
+{% endblock %}
