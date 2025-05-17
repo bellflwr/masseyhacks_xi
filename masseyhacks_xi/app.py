@@ -6,4 +6,6 @@ def create_app() -> Flask:
 
     from . import blueprints
 
+    app.register_blueprint(blueprints.home, url_prefix="/")
+
     return app
