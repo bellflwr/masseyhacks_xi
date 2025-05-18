@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block head %}
 <script defer src="/static/scripts/selector.js"></script>
-<link rel="stylesheet" href="/static/styles/selector.css">
+<link rel="stylesheet" href="/static/styles/selector.css" />
 {% endblock %} {% block content %}
 <main class="bg" id="search-panel">
     <div
@@ -44,12 +44,16 @@
         <div class="loader" x-show="isLoading"></div>
         <ul id="search-results" x-show="!isLoading">
             <template x-for="item in items" :key="item.id">
-                <li class="search-result">
-                    <img x-bind:src="item.image_url" alt="" class="cover-art"/>
-                    <div class="search-result-info">
-                        <p x-text="item.name" class="track-title"></p>
-                        <p x-text="item.artist" class="track-artist"></p>
-                    </div>
+                <li class="search-result" @click="location.href=`/posters/${URL_KINDS[searchKind]}/${item.id}`;">
+                        <img
+                            x-bind:src="item.image_url"
+                            alt=""
+                            class="cover-art"
+                        />
+                        <div class="search-result-info">
+                            <p x-text="item.name" class="track-title"></p>
+                            <p x-text="item.artist" class="track-artist"></p>
+                        </div>
                 </li>
             </template>
         </ul>
