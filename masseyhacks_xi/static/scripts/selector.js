@@ -1,3 +1,8 @@
+let URL_KINDS = {
+    song: "single",
+    album: "album"
+}
+
 async function fetchResults(data) {
     if (data.searchValue == "") {
         return;

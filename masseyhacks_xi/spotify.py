@@ -157,7 +157,6 @@ def get_album(album_id):
         image_url=image_url,
         tracks=track_list,
         total_time=total_time,
-        times_played=album.get("popularity", 0),
     )
 
 
