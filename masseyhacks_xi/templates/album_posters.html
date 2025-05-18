@@ -4,60 +4,83 @@
 {% endblock %}
 {% block content %}
 <div class="center">
-    <div class="bg", x-data="{poster_design: 'Condensed', pattern: 'Gradient', color_A: '#293272', color_B: '#830372'}">
+    <div class="bg", x-data="{poster_design: 'Condensed', pattern: 'Gradient', color_A: '#DF6D9E', color_B: '#C99931'}">
         <div class="bg_elements", id="properties">
-            <header class="large_header", style="margin-bottom: 20px;">Album Poster</header>
-            <header class="medium_header">Album Name: name</header>
-            
-            <label for="poster_design", class="medium_header">Poster Design - </label>
-            <select name="poster_design", class="small_header", id="poster_design">
-                <option>Condensed</option>
-                <option>Expanded</option>
-                <option>Column</option>
-            </select>
-            
-            <header class="medium_header" style="margin-top: 30px;">Background Properties: </header>
+            <div style="margin: 50px 0 0 60px;">
+                <header class="extra_large_header", style="margin-bottom: 20px;">Album Poster</header>
+                <header class="category_header", style="font-style: italic;">Album Name: name</header>
+                
+                <label for="poster_design", class="property_header">Poster Design - </label>
+                <select name="poster_design", class="property_header", id="poster_design", x-model="poster_design">
+                    <option>Condensed</option>
+                    <option>Expanded</option>
+                    <option>Column</option>
+                </select>
+                
+                <header class="category_header" style="margin-top: 30px;">Background Properties: </header>
 
-            <label for="pattern", class="medium_header">Poster Pattern - </label>
-            <select name="pattern", class="small_header", id="poster_design">
-                <option>Gradient</option>
-                <option>Swooshes</option>
-                <option>Swirls</option>
-            </select>
+                <label for="pattern", class="property_header", style="margin-top: 20px;">Poster Pattern - </label>
+                <select name="pattern", class="property_header", id="poster_design">
+                    <option>Gradient</option>
+                    <option>Plaster</option>
+                    <option>Swirls</option>
+                </select>
 
-            <div style="margin: 15px 0 0 20px; background: none;">
-                <label class="small_header">Color A - </label>
-                <input class="small_header", type="color", value="#000000", @change="color_A = $event.target.value">
+                <div style="margin: 15px 0 0 20px; background: none;">
+                    <label class="property_header">Color A - </label>
+                    <input class="property_header", type="color", value="#DF6D9E", @change="color_A = $event.target.value">
 
-                <label class="small_header">Color B - </label>
-                <input class="small_header", type="color", value="#000000", @change="color_B = $event.target.value">
+                    <label class="property_header">Color B - </label>
+                    <input class="property_header", type="color", value="#C99931", @change="color_B = $event.target.value">
+                </div>
+
+                <div style="background: white; width: 80%; height: 60px; margin: 50px 0 0 30px;">
+                    <button class="cta_button", id="download_button">hi</button>
+                </div>
             </div>
         </div>
 
-        <div class="condensed_style bg_elements center", style="margin-left: 0;">
+        <div class="bg_elements center", style="margin-left: 0;">
             <div class="column_arrangement" id="preview" :style="`--color_A: ${color_A}; --color_B: ${color_B}`">
                 <div style="display: flex; height: 40%;">
-                    <div class="bg_elements", style="height: 100%">
+                    <div class="bg_elements", id="album_cover", style="height: 100%">
                         <img src="https://th.bing.com/th/id/OIP.Q4O6T4eu52HwL0_6wZ8WrAHaHa?cb=iwp2&rs=1&pid=ImgDetMain" style="height:100%;">
                     </div>
 
-                    <div class="bg_elements", style="height: 80%; background: none;">
-                        <ol style="background: none;">
+                    <div class="bg_elements", id="album_cover_side_text", style="height: 80%; background: none;">
+                        <ol class="track_header", style="background: none;", x-show="poster_design == 'Condensed'">
                             <li style="background: none;">Silver Ligning</li>
                             <li style="background: none;">Though luck</li>
                         </ol>
+
+                        <label class="large_header", x-show="poster_design == 'Expanded'">Album Name</label>
+                        <label class="medium_header", x-show="poster_design == 'Expanded'">Artist Name</label>
                     </div>
                 </div>
                 
                 <div class="column_arrangement" style="height: 40%; margin: 20px 0 0 15px;">
-                    <label class="large_header">Album Name</label>
-                    <label class="medium_header">Total Time: time</label>
+                    <label class="larger_header", x-show="poster_design == 'Condensed'">Album Name</label>
+                    <label class="large_header", x-show="poster_design == 'Condensed'">Artist Name</label>
+                    <label class="medium_header", x-show="poster_design == 'Condensed'">Total Time: </label>
+
+                    <label class="medium_header", x-show="poster_design == 'Expanded'">Track List: </label>
+                    <ol class="track_header", x-show="poster_design == 'Expanded'">
+                       <li>Song</li> 
+                    </ol>
+
+                    <label class="large_header", x-show="poster_design == 'Column'">Album Name</label>
+                    <label class="medium_header", x-show="poster_design == 'Column'">Artist Name</label>
+                    <ol class="track_header", style="margin-bottom: 30px;", x-show="poster_design == 'Column'">
+                        <li>Song</li>
+                    </ol>
                 </div>
 
                 <div class="column_arrangement", style="height: 20%; margin-left: 25px;">
-                    <label class="small_header">Posted Creation Date</label>
-                    <label class="small_header">Publish Date</label>
-                    <label class="small_header">Record Label</label>
+                    <label class="small_header", x-show="poster_design == 'Expanded'">PCD</label>
+                    <label class="small_header", x-show="poster_design == 'Expanded'">PD</label>
+                    <label class="small_header", x-show="poster_design == 'Expanded'">RL</label>
+
+                    <label class="medium_header", style="margin-top: 25px;" x-show="poster_design == 'Column' || poster_design == 'Condensed'">PCD ⋅ PD ⋅ RL</label>
                 </div>
             </div>
         </div>
