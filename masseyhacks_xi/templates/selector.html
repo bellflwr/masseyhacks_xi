@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block head %}
 <script defer src="/static/scripts/selector.js"></script>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css"> -->
 {% endblock %} {% block content %}
 <div x-data="{searchKind: 'album', searchValue: '', items: []}">
     <input
@@ -29,20 +30,22 @@
     />
 
     <ul>
-        <template x-for="item in items" :key="item.title">
-            <li style="display: flex">
+        <template x-for="item in items" :key="item.id">
+            <li style="display: flex; margin: 0; padding: 0; list-style: none;">
                 <img
                     x-bind:src="item.image_url"
                     alt=""
-                    style="width: 100px; height: auto"
+                    style="width: 64px; height: 64px"
                 />
                 <div style="display: flex; flex-direction: column;">
-                    <p x-text="item.title"></p>
-                    <ul>
+                    <p x-text="item.name" style="margin: 0; padding: 0;"></p>
+                    <!-- <ul>
                         <template x-for="artist in item.artists">
                             <li x-text="artist"></li>
                         </template>
-                    </ul>
+                    </ul> -->
+                    <p x-text="item.artist" style="margin: 0; padding: 0;"></p>
+
                 </div>
             </li>
         </template>
