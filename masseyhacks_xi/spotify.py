@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
+from spotipy.oauth2 import SpotifyClientCredentials
 
 
 @dataclass
@@ -11,6 +11,7 @@ class Song:
     artist: str
     duration_ms: int
     preview_url: str
+    image_url: str
 
 
 @dataclass
@@ -27,7 +28,8 @@ class Album:
 
 scope = "user-library-read"
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+auth_manager = SpotifyClientCredentials()
+sp = spotipy.Spotify(auth_manager=auth_manager)
 
 
 def search_album(album_name, limit=10):
@@ -56,6 +58,7 @@ def search_album(album_name, limit=10):
                 artist=track["artists"][0]["name"],
                 duration_ms=track["duration_ms"],
                 preview_url=track["preview_url"],
+                image_url=image_url,
             )
             track_list.append(song)
         albums_searched.append(
@@ -80,12 +83,15 @@ def search_song(song_name, limit=10):
     if not songs:
         return "No songs found"
     songs_searched = []
+    # with open("thefog.json", "w") as f:
+    #     json.dump(songs[0], f, indent=4)
     for song in songs:
         name = song["name"]
         id = song["id"]
         artist = song["artists"][0]["name"]
         duration_ms = song["duration_ms"]
         preview_url = song["preview_url"]
+        image_url = song["album"]["images"][-1]["url"]
 
         songs_searched.append(
             Song(
@@ -94,6 +100,7 @@ def search_song(song_name, limit=10):
                 artist=artist,
                 duration_ms=duration_ms,
                 preview_url=preview_url,
+                image_url=image_url,
             )
         )
     return songs_searched

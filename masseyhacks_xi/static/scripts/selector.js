@@ -1,4 +1,7 @@
 async function fetchResults({ searchKind, searchValue }) {
+    if (searchValue == "") {
+        return;
+    }
     try {
         const response = await fetch(
             "/selector/search?" +
