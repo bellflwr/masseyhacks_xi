@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block head %}
 <link rel="stylesheet" href="/static/styles/album_poster_style.css">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 {% endblock %}
 {% block content %}
 <div class="center">
@@ -8,7 +10,7 @@
         <div class="bg_elements", id="properties">
             <div style="margin: 50px 0 0 60px;">
                 <header class="extra_large_header", style="margin-bottom: 20px;">Album Poster</header>
-                <header class="category_header", style="font-style: italic;">Album Name: {{ album.name }}</header>
+                <header class="category_header", style="font-style: italic;">{{ album.name }}</header>
                 
                 <label for="poster_design", class="property_header">Poster Design - </label>
                 <select name="poster_design", class="property_header", id="poster_design", x-model="poster_design">
@@ -49,7 +51,19 @@
                     </div>
 
                     <div class="bg_elements", id="album_cover_side_text", style="height: 80%; background: none;">
-                        <ol class="track_header", style="background: none;", x-show="poster_design == 'Condensed'">
+                        {% set min_font = 0.4 %}
+                        {% set max_font = 1.0 %}
+                        {% set min_tracks = 8 %}
+                        {% set max_tracks = 40 %}
+                        {% set total_tracks = album.tracks|length %}
+                        {% if total_tracks <= min_tracks %}
+                            {% set font_scale = max_font %}
+                        {% elif total_tracks >= max_tracks %}
+                            {% set font_scale = min_font %}
+                        {% else %}
+                            {% set font_scale = max_font - ((total_tracks - min_tracks) / (max_tracks - min_tracks)) * (max_font - min_font) %}
+                        {% endif %}
+                        <ol class="track_header" style="background: none; font-size: {{ font_scale|float|round(2, 'floor') }}em;" x-show="poster_design == 'Condensed'">
                             {% for track in album.tracks %}
                             <li style="background: none;">{{ track.name }}</li>
                             {% endfor %}
@@ -57,13 +71,13 @@
 
                         <label class="song_name", x-show="poster_design == 'Expanded'">{{ album.name }}</label>
 
-                        <ol class="track_header" style="margin-right: 15px;", x-show="poster_design == 'Expanded'">
+                        <ol class="track_header" style="margin-right: 15px; font-size: {{ font_scale|float|round(2, 'floor') }}em;" x-show="poster_design == 'Expanded'">
                             {% for track in album.tracks %}
                             <li>{{ track.name }}</li>
                             {% endfor %}
                         </ol>
 
-                        <ol class="track_header", style="margin-bottom: 30px;", x-show="poster_design == 'Column'">
+                        <ol class="track_header" style="margin-bottom: 30px; font-size: {{ font_scale|float|round(2, 'floor') }}em;" x-show="poster_design == 'Column'">
                             {% for track in album.tracks %}
                             <li>{{ track.name }}</li>
                             {% endfor %}
@@ -75,7 +89,7 @@
                     <div class="bg_elements">
                         <label class="song_name", x-show="poster_design == 'Condensed'">{{ album.name }}</label>
                         <label class="artist_name", x-show="poster_design == 'Condensed'">{{ album.artist }}</label>
-                        <label class="small_header", x-show="poster_design == 'Condensed'">Total Time: {{ album.total_time }}</label>
+                        <label class="small_header", x-show="poster_design == 'Condensed'">Duration: {{ duration }}</label>
 
                         <label class="artist_name", x-show="poster_design == 'Expanded'">{{ album.artist }}</label>
                         <label class="artist_name", style="font-weight: 700;" x-show="poster_design == 'Expanded'">Track List: </label>
@@ -90,7 +104,7 @@
                 </div>
 
                 <div class="column_arrangement", style="height: 20%;">
-                    <label class="footer_header center", style="margin-top: 25px;">PCD ⋅ {{ album.release_date }} ⋅ {{ album.record_label }}</label>
+                    <label class="footer_header center", style="margin-top: 25px;">{{ pcd }} ⋅ {{ album.release_date }} ⋅ {{ album.record_label }}</label>
                 </div>
                 <div style="position:absolute;">
                     <img src="/static/images/stencil.png", x-show="pattern == 'Stencils'", style="border-radius: 15px;">

@@ -79,12 +79,14 @@ body {
     background: none;
     font-size: 30px;
     font-family: 'Inter';
+    font-weight: 700;
 }
 
 .artist_name {
     background: none;
     font-size: 25px;
     font-family: 'Inter';
+    font-style: italic;
 }
 
 .track_header {
