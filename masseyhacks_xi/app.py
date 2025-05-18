@@ -9,5 +9,6 @@ def create_app() -> Flask:
     app.register_blueprint(blueprints.home, url_prefix="/")
     app.register_blueprint(blueprints.references, url_prefix="/references")
     app.register_blueprint(blueprints.selector, url_prefix="/selector")
+    app.register_blueprint(blueprints.playlist_maker, url_prefix="/playlist-maker")
 
     return app
