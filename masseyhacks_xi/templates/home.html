@@ -1,17 +1,15 @@
-{% extends "base.html" %}
-{% block head %}
-    <link rel="stylesheet" href="/static/styles/home.css">
-{% endblock %}
-{% block content %}
-  <header>
-    <div class="logo">
-      <img src="/static/images/logo.png" alt="App Logo" />
-      <span>App Name</span>
-    </div>
-  </header>
+{% extends "base.html" %} {% block head %}
+<link rel="stylesheet" href="/static/styles/home.css" />
+{% endblock %} {% block content %}
+<header>
+  <div class="logo">
+    <img src="/static/images/logo.png" alt="App Logo" />
+    <span>Musial</span>
+  </div>
+</header>
 
-  <main>
-    <h1>Create Posters for you favourite albums.</h1>
-    <button class="cta-button">Create</button>
-  </main>
+<main>
+  <h1>Create Posters for you favourite albums.</h1>
+  <a href="/selector/"><button class="cta-button">Create</button></a>
+</main>
 {% endblock %}
