@@ -1,55 +1,59 @@
 {% extends 'base.html' %} {% block head %}
 <script defer src="/static/scripts/selector.js"></script>
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css"> -->
+<link rel="stylesheet" href="/static/styles/selector.css">
 {% endblock %} {% block content %}
-<div x-data="{searchKind: 'album', searchValue: '', items: []}">
-    <input
-        type="radio"
-        name="search-kind"
-        id="album-search"
-        value="album"
-        x-model="searchKind"
-        @change="items = await fetchResults($data)"
-    />
-    <label for="album-search">Album</label>
-    <input
-        type="radio"
-        name="search-kind"
-        id="song-search"
-        value="song"
-        x-model="searchKind"
-        @change="items = await fetchResults($data)"
-    />
-    <label for="song-search">Song</label>
-    <input
-        type="search"
-        id="site-search"
-        name="q"
-        x-model="searchValue"
-        @input.debounce.500ms="items = await fetchResults($data)"
-    />
-
-    <ul>
-        <template x-for="item in items" :key="item.id">
-            <li style="display: flex; margin: 0; padding: 0; list-style: none;">
-                <img
-                    x-bind:src="item.image_url"
-                    alt=""
-                    style="width: 64px; height: 64px"
+<main class="bg" id="search-panel">
+    <div
+        x-data="{searchKind: 'album', searchValue: '', items: [], isLoading: false}"
+        id="search-area"
+    >
+        <input
+            type="search"
+            id="site-search"
+            name="q"
+            x-model="searchValue"
+            @input.debounce.500ms="items = await fetchResults($data)"
+            @keydown.enter="items = await fetchResults($data)"
+        />
+        <div id="search-kind-selector">
+            <label class="radio">
+                <input
+                    type="radio"
+                    name="search-kind"
+                    id="album-search"
+                    value="album"
+                    x-model="searchKind"
+                    @change="items = await fetchResults($data)"
                 />
-                <div style="display: flex; flex-direction: column;">
-                    <p x-text="item.name" style="margin: 0; padding: 0;"></p>
-                    <!-- <ul>
-                        <template x-for="artist in item.artists">
-                            <li x-text="artist"></li>
-                        </template>
-                    </ul> -->
-                    <p x-text="item.artist" style="margin: 0; padding: 0;"></p>
+                <span class="radio-name">Album</span>
+            </label>
 
-                </div>
-            </li>
-        </template>
-    </ul>
-</div>
+            <label class="radio">
+                <input
+                    type="radio"
+                    name="search-kind"
+                    id="song-search"
+                    value="song"
+                    x-model="searchKind"
+                    @change="items = await fetchResults($data)"
+                />
+                <span class="radio-name">Song</span>
+            </label>
+        </div>
+
+        <div class="loader" x-show="isLoading"></div>
+        <ul id="search-results" x-show="!isLoading">
+            <template x-for="item in items" :key="item.id">
+                <li class="search-result">
+                    <img x-bind:src="item.image_url" alt="" class="cover-art"/>
+                    <div class="search-result-info">
+                        <p x-text="item.name" class="track-title"></p>
+                        <p x-text="item.artist" class="track-artist"></p>
+                    </div>
+                </li>
+            </template>
+        </ul>
+    </div>
+</main>
 
 {% endblock %}

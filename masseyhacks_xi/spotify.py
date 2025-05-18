@@ -39,7 +39,6 @@ def search_album(album_name, limit=10):
         return "No albums found"
     albums_searched = []
     for album in albums:
-        print(album["name"])
         name = album["name"]
         id = album["id"]
         artist = album["artists"][0]["name"]

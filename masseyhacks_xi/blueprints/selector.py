@@ -18,9 +18,9 @@ def search():
     search_value = request.args.get("value")
 
     if search_kind == "album":
-        items = search_album(search_value, 15)
+        items = search_album(search_value, 5)
     elif search_kind == "song":
-        items = search_song(search_value, 15)
+        items = search_song(search_value, 5)
     else:
         raise Exception(f"{search_kind} is not a valid search kind!")
 
