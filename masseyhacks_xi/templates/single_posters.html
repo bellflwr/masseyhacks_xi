@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="/static/styles/album_poster_style.css">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+{% endblock %}
+{% block content %}
+<div class="center">
+    <div class="bg", x-data="{poster_design: 'Condensed', pattern: 'Gradient', color_A: '#DF6D9E', color_B: '#C99931'}">
+        <div class="bg_elements", id="properties">
+            <div style="margin: 50px 0 0 60px;">
+                <header class="extra_large_header", style="margin-bottom: 20px;">Single Poster</header>
+                <header class="category_header", style="font-style: italic;">Single Name: {{ song.name }}</header>
+                
+                <label for="poster_design", class="property_header">Poster Design - </label>
+                <select name="poster_design", class="property_header", id="poster_design", x-model="poster_design">
+                    <option>Condensed</option>
+                    <option>Organized</option>
+                    <option>Centered</option>
+                    <option>Right_Focus</option>
+                </select>
+                
+                <header class="category_header" style="margin-top: 30px;">Background Properties: </header>
+
+                <label for="pattern", class="property_header", style="margin-top: 20px;">Poster Pattern - </label>
+                <select name="pattern", class="property_header", id="poster_design", x-model="pattern">
+                    <option>Gradient</option>
+                    <option>Stencils</option>
+                    <option>Roses</option>
+                    <option>Splash</option>
+                </select>
+
+                <div style="margin: 15px 0 0 20px; background: none;">
+                    <label class="property_header">Color A - </label>
+                    <input class="property_header", type="color", value="#DF6D9E", @change="color_A = $event.target.value">
+
+                    <label class="property_header">Color B - </label>
+                    <input class="property_header", type="color", value="#C99931", @change="color_B = $event.target.value">
+                </div>
+                
+                <button class="cta-button center", id="download_button">Download</button>
+            </div>
+        </div>
+
+        <div class="bg_elements center", style="margin-left: 0;">
+            <div class="column_arrangement" id="preview" :style="`--color_A: ${color_A}; --color_B: ${color_B}`">
+                <div style="display: flex; height: 40%;">
+                    <div class="bg_elements", id="album_cover", style="height: 100%; justify-content: center;">
+                        <img src="{{ song.image_url }}", style="height:100%;", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">
+                        <img src="{{ song.image_url }}", style="height:100%;", x-show="poster_design == 'Organized' || poster_design == 'Centered'">
+                    </div>
+
+                    <div class="bg_elements", id="album_cover_side_text", style="height: 80%; background: none;", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">
+                        <label class="large_header", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">{{ song.name }}</label>
+                        <label class="medium_header", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">{{ song.artist }}</label>
+                    </div>
+                </div>
+                
+                <div class="column_arrangement" style="height: 40%; margin: 20px 0 0 0;">
+                    <label class="medium_header", style="margin-left: 15px;", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">Song Duration: {{ song.duration_ms }}</label>
+                    <label class="small_header", style="font-style: italic; margin-left: 15px;", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">Plays: {{ song.times_played }}</label>
+
+                    <label class="large_header center", style="text-align: center;", x-show="poster_design == 'Organized'">Song Name</label>
+                    <label class="small_header center", style="text-align: center;", x-show="poster_design == 'Organized'">Artist Name</label>
+                    <label class="small_header center", style="text-align: center;", x-show="poster_design == 'Organized'">Song Duration: {{ duration }}</label>
+                    <label class="track_header center", style="font-style: italic; text-align: center;" x-show="poster_design == 'Organized'">Plays: {{ song.times_played }}</label>
+
+                    <label class="medium_header center", style="text-align: center;", x-show="poster_design == 'Centered'">Song Name - Artist Name</label>
+                    <label class="small_header center", style="text-align: center;", x-show="poster_design == 'Centered'">Song Duration: </label>
+                    <label class="small_header center", style="font-style: italic; text-align: center;", x-show="poster_design == 'Centered'">Plays: </label>
+                </div>
+
+                <div class="column_arrangement", style="height: 20%">
+                    <label class="small_header center", style="margin-top: 40px; color: white">{{ song.release_date }} ⋅ {{ pcd }} ⋅ {{ song.record_label }}</label>
+                </div>
+            </div>
+
+            <div style="position:absolute; margin-top: 4px;">
+                <img src="/static/images/stencil.png", x-show="pattern == 'Stencils'", style="border-radius: 15px;">
+                <img src="/static/images/roses.png", x-show="pattern == 'Roses'">
+                <img src="/static/images/splash.png", x-show="pattern == 'Splash'">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
