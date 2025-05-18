@@ -75,18 +75,30 @@ body {
     line-height: 1.5;
 }
 
+.song_name {
+    background: none;
+    font-size: 35px;
+    font-family: 'Inter';
+}
+
+.artist_name {
+    background: none;
+    font-size: 25px;
+    font-family: 'Inter';
+}
+
 .track_header {
     background: none;
     font-size: 15px;
     font-family: 'Inter';
-    line-height: 1.5;
+    line-height: 1.2;
 }
 
-.detail_header {
+.footer_header {
     background: none;
-    font-size: 30px;
+    font-size: 15px;
     font-family: 'Noto Sans';
-    font-weight: 700;;
+    font-weight: 700;
 }
 
 #preview {
