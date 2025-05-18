@@ -47,7 +47,7 @@ def search_album(album_name, limit=10):
         id = album["id"]
         artist = album["artists"][0]["name"]
         release_date = album["release_date"]
-        record_label = album["label"]
+        record_label = ""
         total_tracks = album["total_tracks"]
         image_url = album["images"][0]["url"]
         total_time = 0
@@ -65,8 +65,7 @@ def search_album(album_name, limit=10):
                 image_url=image_url,
                 times_played=track.get("popularity", 0),
                 release_date=album["release_date"],
-                record_label=album["label"]
-
+                record_label="",
             )
             track_list.append(song)
         albums_searched.append(
@@ -80,7 +79,6 @@ def search_album(album_name, limit=10):
                 image_url=image_url,
                 tracks=track_list,
                 total_time=total_time,
-                times_played=album.get("popularity", 0)
             )
         )
 
@@ -104,7 +102,7 @@ def search_song(song_name, limit=10):
         image_url = song["album"]["images"][0]["url"]
         times_played = song.get("popularity", 0)
         release_date = song["album"]["release_date"]
-        record_label = song["album"]["label"]
+        record_label = ""
 
         songs_searched.append(
             Song(
@@ -116,10 +114,11 @@ def search_song(song_name, limit=10):
                 image_url=image_url,
                 times_played=times_played,
                 release_date=release_date,
-                record_label=record_label
+                record_label=record_label,
             )
         )
     return songs_searched
+
 
 def get_album(album_id):
     album = sp.album(album_id)
@@ -145,7 +144,7 @@ def get_album(album_id):
             image_url=image_url,
             times_played=track.get("popularity", 0),
             release_date=album["release_date"],
-            record_label=album["label"]
+            record_label=album["label"],
         )
         track_list.append(song)
     return Album(
@@ -158,8 +157,9 @@ def get_album(album_id):
         image_url=image_url,
         tracks=track_list,
         total_time=total_time,
-        times_played=album.get("popularity", 0)
+        times_played=album.get("popularity", 0),
     )
+
 
 def get_song(song_id):
     song = sp.track(song_id)
@@ -170,8 +170,9 @@ def get_song(song_id):
     preview_url = song["preview_url"]
     image_url = song["album"]["images"][0]["url"]
     times_played = song.get("popularity", 0)
-    release_date = song["album"]["release_date"]
-    # record_label = song["album"]["label"]
+    release_date = song["album"].get("release_date", "")
+    album_details = sp.album(song["album"]["id"])
+    record_label = album_details.get("label", "Unknown")
 
     return Song(
         name=name,
@@ -182,5 +183,5 @@ def get_song(song_id):
         image_url=image_url,
         times_played=times_played,
         release_date=release_date,
-        record_label=""
+        record_label=record_label,
     )
