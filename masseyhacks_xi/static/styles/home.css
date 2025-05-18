@@ -1,4 +1,4 @@
-* {
+*{
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -55,7 +55,7 @@
       max-width: 600px;
     }
 
-    .cta-button {
+    .cta_button {
       margin-top: 2rem;
       padding: 0.75rem 1.5rem;
       background-color: #1ca7a7;
@@ -65,8 +65,9 @@
       font-size: 1rem;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      font-family: 'Inter';
     }
 
-    .cta-button:hover {
+    .cta_button:hover {
       background-color: #188e8e;
     }
