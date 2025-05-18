@@ -10,14 +10,14 @@
         <div class="bg_elements", id="properties">
             <div style="margin: 50px 0 0 60px;">
                 <header class="extra_large_header", style="margin-bottom: 20px;">Single Poster</header>
-                <header class="category_header", style="font-style: italic;">Single Name: {{ song.name }}</header>
+                <header class="category_header", style="font-style: italic;">{{ song.name }}</header>
                 
                 <label for="poster_design", class="property_header">Poster Design - </label>
                 <select name="poster_design", class="property_header", id="poster_design", x-model="poster_design">
                     <option>Condensed</option>
                     <option>Organized</option>
                     <option>Centered</option>
-                    <option>Right_Focus</option>
+                    
                 </select>
                 
                 <header class="category_header" style="margin-top: 30px;">Background Properties: </header>
@@ -28,6 +28,8 @@
                     <option>Stencils</option>
                     <option>Roses</option>
                     <option>Splash</option>
+                    <option>Hexagons</option>
+                    <option>Circles</option>
                 </select>
 
                 <div style="margin: 15px 0 0 20px; background: none;">
@@ -46,32 +48,32 @@
             <div class="column_arrangement" id="preview" :style="`--color_A: ${color_A}; --color_B: ${color_B}`">
                 <div style="display: flex; height: 40%;">
                     <div class="bg_elements", id="album_cover", style="height: 100%; justify-content: center;">
-                        <img src="{{ song.image_url }}", style="height:100%;", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">
+                        <img src="{{ song.image_url }}", style="height:100%;", x-show="poster_design == 'Condensed'">
                         <img src="{{ song.image_url }}", style="height:100%;", x-show="poster_design == 'Organized' || poster_design == 'Centered'">
                     </div>
 
-                    <div class="bg_elements", id="album_cover_side_text", style="height: 80%; background: none;", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">
-                        <label class="large_header", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">{{ song.name }}</label>
-                        <label class="medium_header", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">{{ song.artist }}</label>
+                    <div class="bg_elements", id="album_cover_side_text", style="height: 80%; background: none;", x-show="poster_design == 'Condensed'">
+                        <h1 class="song_name", x-show="poster_design == 'Condensed'">{{ song.name }}</h1>
+                        <h2 class="artist_name", x-show="poster_design == 'Condensed'">{{ song.artist }}</h2>
                     </div>
                 </div>
                 
                 <div class="column_arrangement" style="height: 40%; margin: 20px 0 0 0;">
-                    <label class="medium_header", style="margin-left: 15px;", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">Song Duration: {{ song.duration_ms }}</label>
-                    <label class="small_header", style="font-style: italic; margin-left: 15px;", x-show="poster_design == 'Condensed' || poster_design == 'Right_Focus'">Plays: {{ song.times_played }}</label>
+                    <label class="medium_header", style="margin-left: 15px;", x-show="poster_design == 'Condensed'">Song Duration: {{ song.duration_ms }}</label>
+                    <label class="small_header", style="font-style: italic; margin-left: 15px;", x-show="poster_design == 'Condensed'">Plays: {{ song.times_played }}</label>
 
-                    <label class="large_header center", style="text-align: center;", x-show="poster_design == 'Organized'">Song Name</label>
-                    <label class="small_header center", style="text-align: center;", x-show="poster_design == 'Organized'">Artist Name</label>
+                    <label class="song_name center", style="text-align: center;", x-show="poster_design == 'Organized'">{{ song.name }}</label>
+                    <label class="artist_name center", style="text-align: center;", x-show="poster_design == 'Organized'">{{ song.artist }}</label>
                     <label class="small_header center", style="text-align: center;", x-show="poster_design == 'Organized'">Song Duration: {{ duration }}</label>
                     <label class="track_header center", style="font-style: italic; text-align: center;" x-show="poster_design == 'Organized'">Plays: {{ song.times_played }}</label>
 
-                    <label class="medium_header center", style="text-align: center;", x-show="poster_design == 'Centered'">Song Name - Artist Name</label>
-                    <label class="small_header center", style="text-align: center;", x-show="poster_design == 'Centered'">Song Duration: </label>
-                    <label class="small_header center", style="font-style: italic; text-align: center;", x-show="poster_design == 'Centered'">Plays: </label>
+                    <label class="artist_name center", style="text-align: center;", x-show="poster_design == 'Centered'">{{ song.name }} - {{ song.artist }}</label>
+                    <label class="small_header center", style="text-align: center;", x-show="poster_design == 'Centered'">Song Duration: {{ duration }}</label>
+                    <label class="small_header center", style="font-style: italic; text-align: center;", x-show="poster_design == 'Centered'">Plays: {{ song.times_played }} </label>
                 </div>
 
                 <div class="column_arrangement", style="height: 20%">
-                    <label class="small_header center", style="margin-top: 40px; color: white">{{ song.release_date }} ⋅ {{ pcd }} ⋅ {{ song.record_label }}</label>
+                    <label class="footer_header center", style="margin-top: 40px; color: white">{{ song.release_date }} ⋅ {{ pcd }} ⋅ {{ song.record_label }}</label>
                 </div>
             </div>
 
@@ -79,6 +81,8 @@
                 <img src="/static/images/stencil.png", x-show="pattern == 'Stencils'", style="border-radius: 15px;">
                 <img src="/static/images/roses.png", x-show="pattern == 'Roses'">
                 <img src="/static/images/splash.png", x-show="pattern == 'Splash'">
+                <img src="/static/images/hexagons.png", x-show="pattern == 'Hexagons'">
+                <img src="/static/images/circles.png", x-show="pattern == 'Circles'">
             </div>
         </div>
     </div>
