@@ -59,6 +59,7 @@ body {
     background: none;
     font-size: 20px;
     font-family: 'Noto Sans';
+    font-weight: 700;
 }
 
 .smallest_header {
@@ -73,6 +74,13 @@ body {
     font-size: 15px;
     font-family: 'Inter';
     line-height: 1.5;
+}
+
+.detail_header {
+    background: none;
+    font-size: 30px;
+    font-family: 'Noto Sans';
+    font-weight: 700;;
 }
 
 #preview {
@@ -92,18 +100,18 @@ body {
 }
 
 .cta-button {
-      margin-top: 2rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #1ca7a7;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-family: 'Inter';
-    }
+    margin-top: 2rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #1ca7a7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Inter';
+}
 
-    .cta-button:hover {
-      background-color: #188e8e;
-    }
+.cta-button:hover {
+    background-color: #188e8e;
+}

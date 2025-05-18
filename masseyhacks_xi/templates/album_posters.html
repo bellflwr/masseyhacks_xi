@@ -20,10 +20,10 @@
                 <header class="category_header" style="margin-top: 30px;">Background Properties: </header>
 
                 <label for="pattern", class="property_header", style="margin-top: 20px;">Poster Pattern - </label>
-                <select name="pattern", class="property_header", id="poster_design">
+                <select name="pattern", class="property_header", id="poster_design", x-model="pattern">
                     <option>Gradient</option>
-                    <option>Plaster</option>
-                    <option>Swirls</option>
+                    <option>Stencils</option>
+                    <option>Roses</option>
                 </select>
 
                 <div style="margin: 15px 0 0 20px; background: none;">
@@ -78,8 +78,13 @@
                     <label class="small_header", x-show="poster_design == 'Expanded'">PD</label>
                     <label class="small_header", x-show="poster_design == 'Expanded'">RL</label>
 
-                    <label class="medium_header", style="margin-top: 25px;" x-show="poster_design == 'Column' || poster_design == 'Condensed'">PCD ⋅ PD ⋅ RL</label>
+                    <label class="detail_header", style="margin-top: 25px;" x-show="poster_design == 'Column' || poster_design == 'Condensed'">PCD ⋅ PD ⋅ RL</label>
                 </div>
+            </div>
+
+            <div style="position:absolute">
+                <img src="/static/images/stencil.png", x-show="pattern == 'Stencils'", style="border-radius: 15px;">
+                <img src="/static/images/roses.png", x-show="pattern == 'Roses'">
             </div>
         </div>
     </div>
