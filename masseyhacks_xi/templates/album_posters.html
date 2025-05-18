@@ -8,7 +8,7 @@
         <div class="bg_elements", id="properties">
             <div style="margin: 50px 0 0 60px;">
                 <header class="extra_large_header", style="margin-bottom: 20px;">Album Poster</header>
-                <header class="category_header", style="font-style: italic;">Album Name: name</header>
+                <header class="category_header", style="font-style: italic;">Album Name: {{ album.name }}</header>
                 
                 <label for="poster_design", class="property_header">Poster Design - </label>
                 <select name="poster_design", class="property_header", id="poster_design", x-model="poster_design">
@@ -43,51 +43,57 @@
             <div class="column_arrangement" id="preview" :style="`--color_A: ${color_A}; --color_B: ${color_B}`">
                 <div style="display: flex; height: 40%;">
                     <div class="bg_elements", id="album_cover", style="height: 100%">
-                        <img src="https://th.bing.com/th/id/OIP.Q4O6T4eu52HwL0_6wZ8WrAHaHa?cb=iwp2&rs=1&pid=ImgDetMain" style="height:100%;", crossorigin="anonymous">
+                        <img src="{{ album.image_url }}" style="height:100%;", crossorigin="anonymous">
                     </div>
 
                     <div class="bg_elements", id="album_cover_side_text", style="height: 80%; background: none;">
                         <ol class="track_header", style="background: none;", x-show="poster_design == 'Condensed'">
-                            <li style="background: none;">Silver Ligning</li>
-                            <li style="background: none;">Though luck</li>
+                            {% for track in album.tracks %}
+                            <li style="background: none;">{{ track.name }}</li>
+                            {% endfor %}
                         </ol>
 
-                        <label class="large_header", x-show="poster_design == 'Expanded'">Album Name</label>
-                        <label class="medium_header", x-show="poster_design == 'Expanded'">Artist Name</label>
+                        <label class="large_header", x-show="poster_design == 'Expanded'">{{ album.name }}</label>
+                        <label class="medium_header", x-show="poster_design == 'Expanded'">{{ album.artist }}</label>
                     </div>
                 </div>
                 
                 <div class="column_arrangement" style="height: 40%; margin: 20px 0 0 15px;">
-                    <label class="larger_header", x-show="poster_design == 'Condensed'">Album Name</label>
-                    <label class="large_header", x-show="poster_design == 'Condensed'">Artist Name</label>
-                    <label class="medium_header", x-show="poster_design == 'Condensed'">Total Time: </label>
+                    <label class="larger_header", x-show="poster_design == 'Condensed'">{{ album.name }}</label>
+                    <label class="large_header", x-show="poster_design == 'Condensed'">{{ album.artist }}</label>
+                    <label class="medium_header", x-show="poster_design == 'Condensed'">Total Time: {{ album.total_time }}</label>
 
                     <label class="medium_header", x-show="poster_design == 'Expanded'">Track List: </label>
                     <ol class="track_header", x-show="poster_design == 'Expanded'">
-                       <li>Song</li> 
+                        {% for track in album.tracks %}
+                        <li>{{ track.name }}</li>
+                        {% endfor %}
                     </ol>
 
-                    <label class="large_header", x-show="poster_design == 'Column'">Album Name</label>
-                    <label class="medium_header", x-show="poster_design == 'Column'">Artist Name</label>
+                    <label class="large_header", x-show="poster_design == 'Column'">{{ album.name }}</label>
+                    <label class="medium_header", x-show="poster_design == 'Column'">{{ album.artist }}</label>
                     <ol class="track_header", style="margin-bottom: 30px;", x-show="poster_design == 'Column'">
-                        <li>Song</li>
+                        {% for track in album.tracks %}
+                        <li>{{ track.name }}</li>
+                        {% endfor %}
                     </ol>
                 </div>
 
                 <div class="column_arrangement", style="height: 20%; margin-left: 25px;">
                     <label class="small_header", x-show="poster_design == 'Expanded'">PCD</label>
-                    <label class="small_header", x-show="poster_design == 'Expanded'">PD</label>
-                    <label class="small_header", x-show="poster_design == 'Expanded'">RL</label>
+                    <label class="small_header", x-show="poster_design == 'Expanded'">{{ album.release_date }}</label>
+                    <label class="small_header", x-show="poster_design == 'Expanded'">{{ album.record_label }}</label>
 
-                    <label class="detail_header", style="margin-top: 25px;" x-show="poster_design == 'Column' || poster_design == 'Condensed'">PCD ⋅ PD ⋅ RL</label>
+                    <label class="detail_header", style="margin-top: 25px;" x-show="poster_design == 'Column' || poster_design == 'Condensed'">PCD ⋅ {{ album.release_date }} ⋅ {{ album.record_label }}</label>
+                </div>
+                <div style="position:absolute; margin-top: 4px;">
+                    <img src="/static/images/stencil.png", x-show="pattern == 'Stencils'", style="border-radius: 15px;">
+                    <img src="/static/images/roses.png", x-show="pattern == 'Roses'">
+                    <img src="/static/images/splash.png", x-show="pattern == 'Splash'">
                 </div>
             </div>
 
-            <div style="position:absolute; margin-top: 4px;">
-                <img src="/static/images/stencil.png", x-show="pattern == 'Stencils'", style="border-radius: 15px;">
-                <img src="/static/images/roses.png", x-show="pattern == 'Roses'">
-                <img src="/static/images/splash.png", x-show="pattern == 'Splash'">
-            </div>
+            
         </div>
     </div>
 </div>
