@@ -47,9 +47,9 @@
         <div class="bg_elements center", style="margin-left: 0;">
             <div class="column_arrangement" id="preview" :style="`--color_A: ${color_A}; --color_B: ${color_B}`">
                 <div style="display: flex; height: 40%;">
-                    <div class="bg_elements", id="album_cover", style="height: 100%; justify-content: center;">
-                        <img src="{{ song.image_url }}", style="height:100%;", x-show="poster_design == 'Condensed'">
-                        <img src="{{ song.image_url }}", style="height:100%;", x-show="poster_design == 'Organized' || poster_design == 'Centered'">
+                    <div class="bg_elements" id="album_cover" style="height: 100%; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ song.image_url }}" style="height:100%;" x-show="poster_design == 'Condensed'">
+                        <img src="{{ song.image_url }}" style="height:100%;" x-show="poster_design == 'Organized' || poster_design == 'Centered'">
                     </div>
 
                     <div class="bg_elements", id="album_cover_side_text", style="height: 80%; background: none;", x-show="poster_design == 'Condensed'">
@@ -59,21 +59,18 @@
                 </div>
                 
                 <div class="column_arrangement" style="height: 40%; margin: 20px 0 0 0;">
-                    <label class="medium_header", style="margin-left: 15px;", x-show="poster_design == 'Condensed'">Song Duration: {{ song.duration_ms }}</label>
-                    <label class="small_header", style="font-style: italic; margin-left: 15px;", x-show="poster_design == 'Condensed'">Plays: {{ song.times_played }}</label>
+                    <label class="medium_header", style="margin-left: 15px;", x-show="poster_design == 'Condensed'">Song Duration: {{ duration }}</label>
 
                     <label class="song_name center", style="text-align: center;", x-show="poster_design == 'Organized'">{{ song.name }}</label>
                     <label class="artist_name center", style="text-align: center;", x-show="poster_design == 'Organized'">{{ song.artist }}</label>
                     <label class="small_header center", style="text-align: center;", x-show="poster_design == 'Organized'">Song Duration: {{ duration }}</label>
-                    <label class="track_header center", style="font-style: italic; text-align: center;" x-show="poster_design == 'Organized'">Plays: {{ song.times_played }}</label>
 
                     <label class="artist_name center", style="text-align: center;", x-show="poster_design == 'Centered'">{{ song.name }} - {{ song.artist }}</label>
                     <label class="small_header center", style="text-align: center;", x-show="poster_design == 'Centered'">Song Duration: {{ duration }}</label>
-                    <label class="small_header center", style="font-style: italic; text-align: center;", x-show="poster_design == 'Centered'">Plays: {{ song.times_played }} </label>
                 </div>
 
                 <div class="column_arrangement", style="height: 20%">
-                    <label class="footer_header center", style="margin-top: 40px; color: white">{{ song.release_date }} ⋅ {{ pcd }} ⋅ {{ song.record_label }}</label>
+                    <label class="footer_header center", style="margin-top: 40px; color: white; text-align: center;" >{{ song.release_date }} ⋅ {{ pcd }} ⋅ {{ song.record_label }}</label>
                 </div>
             </div>
 
